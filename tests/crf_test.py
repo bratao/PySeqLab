@@ -1,6 +1,6 @@
-'''
+"""
 @author: ahmed allam <ahmed.allam@yale.edu>
-'''
+"""
 import os
 from copy import deepcopy
 import numpy
@@ -17,6 +17,7 @@ from pyseqlab.crf_learning import Learner
 
 
 root_dir = os.path.dirname(os.path.realpath(__file__))
+
 
 class TestCRFModel(object):
     def __init__(self, templateY, templateXY, model_class, model_repr_class, fextractor_class, scaling_method, optimization_options, filter_obj = None):
@@ -108,49 +109,52 @@ class TestCRFModel(object):
     def test_feature_extraction(self):
 
         seqs_id = self._seqs_id
-#         seqs_info = self._seqs_info
+        # seqs_info = self._seqs_info
         model = self._model
         crf_model = self._crf_model
-#         print(crf_model.seqs_info == seqs_info)
+        # print(crf_model.seqs_info == seqs_info)
         globalfeatures_len = len(model.modelfeatures_codebook)
         activefeatures_len = 0
         f = set()
         for seq_id in seqs_id:
-#             print(seqs_info[seq_id])
-#             print(seqs_info[seq_id] == crf_model.seqs_info[seq_id])
+            # print(seqs_info[seq_id])
+            # print(seqs_info[seq_id] == crf_model.seqs_info[seq_id])
             crf_model.load_activefeatures(seq_id)
-#             print("crf.seqs_info ", crf_model.seqs_info[seq_id])
-#             print("seqs_info ", seqs_info[seq_id])
+            # print("crf.seqs_info ", crf_model.seqs_info[seq_id])
+            # print("seqs_info ", seqs_info[seq_id])
             seq_activefeatures = crf_model.seqs_info[seq_id]["activefeatures"]
             for features_dict in seq_activefeatures.values():
                 for z_patt in features_dict:
                     f.update(set(features_dict[z_patt][0]))
             crf_model.clear_cached_info([seq_id])
-#             print(seqs_info[seq_id])
+            # print(seqs_info[seq_id])
         activefeatures_len += len(f)
                     
         statement = ""
-        if(activefeatures_len < globalfeatures_len): 
+        if activefeatures_len < globalfeatures_len:
             statement = "len(activefeatures) < len(modelfeatures)"
-        elif(activefeatures_len > globalfeatures_len):
+        elif activefeatures_len > globalfeatures_len:
             statement = "len(activefeatures) > len(modelfeatures)"
         else:
             statement = "PASS"
         print(statement)
 
+
 def read_data(file_path, header, sep=" "):
     parser = DataFileParser()
     return([seq for seq in parser.read_file(file_path, header = header, column_sep = sep)])
+
 
 def load_segments():
     seqs = []
     X = [{'w':'I'}, {'w':'live'}, {'w':'in'}, {'w':'New'}, {'w':'Haven'}]
     Y = ['P', 'O', 'O', 'L', 'L']
     seqs.append(SequenceStruct(X, Y, "O"))
-    X = [{'w':'Connecticut'}, {'w':'is'}, {'w':'in'}, {'w':'the'}, {'w':'United'},{'w':'States'}, {'w':'of'}, {'w':'America'}]
+    X = [{'w': 'Connecticut'}, {'w': 'is'}, {'w': 'in'}, {'w': 'the'}, {'w': 'United'},
+         {'w': 'States'}, {'w': 'of'}, {'w': 'America'}]
     Y = ['L', 'O', 'O', 'O', 'L', 'L', 'L', 'L']
     seqs.append(SequenceStruct(X, Y, "O"))
-    return(seqs)
+    return seqs
 
 
 def run_segments(model_order):
@@ -158,10 +162,10 @@ def run_segments(model_order):
     templateXY = {}
     # generating template for attr_name = w
     template_generator.generate_template_XY('w', ('1-gram', range(0, 1)), model_order, templateXY)
-    templateY = {'Y':()}
+    templateY = {'Y': ()}
     filter_obj = None
     seq = load_segments()
-    return(seq, templateY, templateXY, filter_obj)
+    return seq, templateY, templateXY, filter_obj
 
 def load_suppl_example():
     X = [{'w':'Peter'}, {'w':'goes'}, {'w':'to'}, {'w':'Britain'}, {'w':'and'}, {'w':'France'}, {'w':'annually'},{'w':'.'}]
