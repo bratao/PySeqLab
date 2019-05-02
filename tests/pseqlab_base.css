@@ -1,0 +1,81 @@
+
+<style>
+/* 
+for more info and resources check these links:
+http://stackoverflow.com/questions/34303422/how-to-change-the-font-size-and-color-of-markdown-cell-in-ipython-py-2-7-noteb
+http://nbviewer.jupyter.org/github/Carreau/posts/blob/master/Blog1.ipynb
+
+*/
+
+div.cell { /* Tunes the space between cells */
+margin-top:0.5em;
+margin-bottom:0.5em;
+}
+
+div.text_cell_render h1 { /* Main titles bigger, centered */
+font-size: 1.7em;
+line-height:1.1em;
+text-align:left;
+}
+
+div.text_cell_render h2 { /*  Parts names nearer from text */
+margin-bottom: -0.1em;
+}
+
+
+div.text_cell_render { /* Customize text cells */
+font-family: 'Times New Roman';
+font-size:1.3em;
+line-height:1.3em;
+padding-left:1em;
+padding-right:1em;
+}
+
+tr.pseq_border{
+ border-bottom:1pt solid black;
+ border: 1px solid green;
+ padding: 5px;
+}
+
+.pseq_class{
+font-weight:bold;
+color:blue;
+}
+.pseq_attr{
+font-weight:bold;
+font-style:italic;
+}
+.pseq_method{
+font-weight:bold;
+color:blue;
+}
+.pseq_args{
+font-weight:bold;
+}
+
+code.pseq_code{
+font-size:0.85em;
+}
+code.pseq_class{
+font-size:0.9em;
+font-weight:bold;
+color:blue;
+}
+code.pseq_method{
+font-size:0.9em;
+font-weight:bold;
+color:blue;
+}
+code.pseq_attr{
+font-size:0.9em;
+font-weight:bold;
+font-style:italic;
+}
+code.pseq_args{
+font-size:0.85em;
+font-weight:bold;
+}
+code.pseq_var{
+font-size:0.85em;
+}
+</style>
